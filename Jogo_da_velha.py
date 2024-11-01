@@ -19,7 +19,15 @@ tabuleiro_desenhado = False
 
 coordenada_x = 0
 coordenada_y = 0
-
+q1 = 0
+q2 = 0 
+q3 = 0
+q4 = 0
+q5 = 0
+q6 = 0
+q7 = 0 
+q8 = 0 
+q9 = 0
 def desenha_tabuleiro(espessura, cor):
     #                                   Origem      Destino
     #                                   (x  , Y )    (x  , y) 
@@ -29,26 +37,41 @@ def desenha_tabuleiro(espessura, cor):
     pygame.draw.line(screem, cor, (25, 325), (475, 325), espessura)
 def faz_jogada():    
      #Primeira Linha
-        if coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:
+        global q1, q2, q3, q4, q5, q6, q7, q8, q9  
+        status = True      
+        if q1 == 0 and coordenada_x > 0 and coordenada_x < 200 and coordenada_y < 200:
             screem.blit(jogador_atual,(60,60)) #primeiro
-        elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:    
+            q1 = jogador_atual
+        elif q2 == 0 and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y < 200:    
             screem.blit(jogador_atual,(215,60)) #segundo
-        elif coordenada_x >= 400 and coordenada_y < 200:
+            q2 = jogador_atual
+        elif q3 == 0 and coordenada_x >= 400 and coordenada_y < 200:
             screem.blit(jogador_atual,(380,60)) #terceiro
+            q3 = jogador_atual
         #Segunda Linha
-        elif coordenada_x < 200 and coordenada_y >= 200 and coordenada_y < 400:
+        elif q4 == 0 and coordenada_x < 200 and coordenada_y >= 200 and coordenada_y < 400:
             screem.blit(jogador_atual,(60,220)) #Quarta
-        elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 200 and coordenada_y <400:  
+            q4 = jogador_atual
+        elif q5 == 0 and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 200 and coordenada_y <400:  
             screem.blit(jogador_atual,(215,215)) #Quinta
-        elif coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y < 400:
-             screem.blit(jogador_atual,(380,210)) #Sexto
+            q5 = jogador_atual
+        elif q6 == 0 and coordenada_x >= 400 and coordenada_y >= 200 and coordenada_y < 400:
+            screem.blit(jogador_atual,(380,210)) #Sexto
+            q6 = jogador_atual
         #Terceira Linha
-        elif coordenada_x < 200 and coordenada_y >= 400:
+        elif q7 == 0 and coordenada_x < 200 and coordenada_y >= 400:
             screem.blit(jogador_atual,(60,380)) #Setimo
-        elif coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400:
+            q7 = jogador_atual
+        elif q8 == 0 and coordenada_x >= 200 and coordenada_x < 400 and coordenada_y >= 400:
             screem.blit(jogador_atual,(215,380)) #Oitavo
-        elif coordenada_x >= 400 and coordenada_y >= 400:  
-            screem.blit(jogador_atual,(380,380)) #Nono        
+            q8 = jogador_atual
+        elif q9 == 0 and coordenada_x >= 400 and coordenada_y >= 400:  
+            screem.blit(jogador_atual,(380,380)) #Nono    
+            q9 = jogador_atual
+        else:
+            status = False
+        return status
+       
 while running:
     # poll for events
     # pygame.QUIT event means the user apresenta_personagemed x  to close your window
@@ -62,25 +85,35 @@ while running:
             print('coordenada_y', click_pos[1])
             coordenada_x = click_pos[0]
             coordenada_y = click_pos[1]
-            rodadas = rodadas + 1
-            if(rodadas >= 10):
+            if(rodadas >= 9):
                 screem.fill('black')
                 rodadas = 0
                 coordenada_x = 0
                 coordenada_Y = 0
                 tabuleiro_desenhado = False
-
-            if rodadas != 1:
+            if (faz_jogada()):
+                rodadas = rodadas + 1
                 if jogador_atual == personagem_x:
-                   jogador_atual = personagem_o
+                    jogador_atual = personagem_o
                 else:
-                   jogador_atual = personagem_x          
-            else:
-                   jogador_atual = personagem_x
-            faz_jogada()          
-    
+                    jogador_atual = personagem_x      
+
+            
+                
+         
+                  
+    print(q1)
     if tabuleiro_desenhado == False:     
         desenha_tabuleiro(10, 'blue')
+        q1 = 0
+        q2 = 0 
+        q3 = 0
+        q4 = 0
+        q5 = 0
+        q6 = 0
+        q7 = 0 
+        q8 = 0 
+        q9 = 0
         tabuleiro_desenhado = True
    
        
